@@ -1,6 +1,7 @@
 import React from "react"
 import Button from '../Button/Button.js'
 import Visor from '../Visor/Visor.js'
+import SecondVisor from '../SecondVisor/SecondVisor.js'
 import styled from 'styled-components'
 
 
@@ -17,6 +18,9 @@ const Line = styled.div`
     padding: 1em;
     background: papayawhip;
 `;
+
+const operatorsAvailable = ['+','-','x','/'];
+
 class Calculator extends React.Component {
 
     constructor(props){
@@ -24,21 +28,38 @@ class Calculator extends React.Component {
         this.state = { expression: '', solved: true};
     }
 
+    clearVisors = () => {
+        this.setState({
+            expression: '0',
+            solved: true
+        });
+    }
+
     addToExpression = (exp) => {
         if (this.state.solved)
         {
             console.log("setting state to "+exp);
             return this.setState({ 
-                expression: exp,
+                expression: exp === '.' ? '0.' : exp,
                 solved: false
             })
         }
+        //if last char was an operator
+        if (operatorsAvailable.includes(this.state.expression.charAt(this.state.expression.length-1))){
+            if (exp === '.'){
+                exp = '0.';
+            }            
+        } 
         this.setState({ expression: this.state.expression+exp })
         console.log("setting state to "+this.state.expression+exp);
     };
 
     calculateAnswer = (exp) => {
         console.log("calculating answer");
+        if (this.state.expression.includes('='))
+        {
+            return;
+        }
         this.setState({ 
             expression: this.state.expression+exp+this.solveExpression(this.state.expression),
             solved: true
@@ -47,7 +68,6 @@ class Calculator extends React.Component {
 
     solveExpression = (exp) => {
         console.log("solving expression "+exp);
-        const operatorsAvailable = ['+','-','x','/'];
         let terms = [];
         let temp = '';
         let operators = [];
@@ -82,8 +102,8 @@ class Calculator extends React.Component {
             return "NaN"
         }
         for(let k=0;k<operators.length;k++){
-            const term1 = parseInt(terms[i]);
-            const term2 = parseInt(terms[j]);
+            const term1 = parseFloat(terms[i]);
+            const term2 = parseFloat(terms[j]);
             switch(operators[i]){
                 case '+':
                     result =  term1 + term2;
@@ -117,6 +137,9 @@ class Calculator extends React.Component {
                         <Visor expression={this.state.expression}/>
                     </Line>
                     <Line>
+                        <SecondVisor expression={this.state.expression}/>
+                    </Line>
+                    <Line>
                         <Button triggerButtonAction={this.addToExpression} text={`1`} />
                         <Button triggerButtonAction={this.addToExpression} text={`2`} />
                         <Button triggerButtonAction={this.addToExpression} text={`3`} />
@@ -134,7 +157,7 @@ class Calculator extends React.Component {
                     <Line>
                         <Button triggerButtonAction={this.addToExpression} text={`0`} />
                         <Button triggerButtonAction={this.addToExpression} text={`.`} />
-                        <Button triggerButtonAction={this.addToExpression} text={`AC`} />
+                        <Button triggerButtonAction={this.clearVisors} text={`AC`} />
                     </Line>
                     <Line>
                         <Button triggerButtonAction={this.addToExpression} text={`+`} />
