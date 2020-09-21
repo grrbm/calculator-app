@@ -25,7 +25,11 @@ class Calculator extends React.Component {
 
     constructor(props){
         super(props);
-        this.state = { expression: '', solved: true};
+        this.state = { 
+            expression: '', 
+            solved: true,
+            lastResult: ''
+        };
     }
 
     clearVisors = () => {
@@ -36,16 +40,41 @@ class Calculator extends React.Component {
     }
 
     addToExpression = (exp) => {
+
+        //if current expression is an operator
+        this.setState((prevState,props)=>{
+            if (exp.length === 1 && operatorsAvailable.includes(exp[0])){
+                return {
+                    lastResult: exp[0]
+                }
+            }
+            if (prevState.lastResult.length === 1 && operatorsAvailable.includes(prevState.lastResult[0])){
+                return {
+                    lastResult: exp[0]
+                }
+            }
+            return {
+                lastResult: prevState.lastResult+exp
+            }
+        })
+        
         if (this.state.solved)
         {
+            //if an operator shows up immediatly after a result
+            if(exp.length === 1 && operatorsAvailable.includes(exp[0])){
+                return this.setState({
+                    expression: this.state.lastResult+exp,
+                    solved: false
+                })
+            }
             console.log("setting state to "+exp);
             return this.setState({ 
                 expression: exp === '.' ? '0.' : exp,
                 solved: false
             })
         }
-        //if last char was an operator
         if (operatorsAvailable.includes(this.state.expression.charAt(this.state.expression.length-1))){
+            //if last char was an operator and current char is a dot
             if (exp === '.'){
                 exp = '0.';
             }            
@@ -91,7 +120,9 @@ class Calculator extends React.Component {
         }
         console.log("terms: "+JSON.stringify(terms));
         console.log("operators: "+JSON.stringify(operators));
-        return this.doMath(terms,operators)
+        const result = this.doMath(terms,operators);
+        this.setState({lastResult: result});
+        return result;
     }
 
     doMath = (terms,operators) => {
@@ -137,7 +168,7 @@ class Calculator extends React.Component {
                         <Visor expression={this.state.expression}/>
                     </Line>
                     <Line>
-                        <SecondVisor expression={this.state.expression}/>
+                        <SecondVisor expression={this.state.expression} lastResult={this.state.lastResult} />
                     </Line>
                     <Line>
                         <Button triggerButtonAction={this.addToExpression} text={`1`} />

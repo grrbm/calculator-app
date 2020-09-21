@@ -7,18 +7,27 @@ const VisorScreen = styled.input`
     width: 10em;
     height: 1.3em;
 `
+const operatorsAvailable = ['+','-','x','/'];
 
 class SecondVisor extends React.Component{
 
     constructor(props){
         super(props);
+        this.state = { filteredExpression: ''}
     }
 
-    componentDidMount(){
-        console.log("Visor mounted!");
+    componentDidUpdate(prevProps){
+        if (prevProps.lastResult !== this.props.lastResult){
+            //let arrayOfChars = this.props.expression.split("");
+            //const found = arr1.some(r=> arr2.includes(r))
+            this.setState({
+                filteredExpression: this.props.lastResult
+            });
+        }
     }
+
     render(){
-        return <VisorScreen value={this.props.expression} readOnly/>
+        return <VisorScreen value={this.state.filteredExpression} readOnly/>
     }
 
 
