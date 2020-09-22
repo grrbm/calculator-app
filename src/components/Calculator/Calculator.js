@@ -123,6 +123,9 @@ class Calculator extends React.Component {
         }
         console.log("terms: "+JSON.stringify(terms));
         console.log("operators: "+JSON.stringify(operators));
+        if (terms.length === 1){
+            return terms[0];
+        }
         const result = this.doMath(terms,operators);
         this.setState({lastResult: result});
         return result;
