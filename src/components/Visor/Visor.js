@@ -9,6 +9,15 @@ const VisorScreen = styled.input`
     width: 7.4rem;
     text-align: right;
     padding: 0.3rem;
+    outline: 1px;
+    &:focus {
+        outline: 1px;
+        
+    }
+    &:hover {
+        outline: 1px;
+        cursor:default;
+    }
 `
 
 class Visor extends React.Component{
