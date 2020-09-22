@@ -6,7 +6,11 @@ const Number = styled.button`
         text-align: center;
         color: palevioletred;
         margin: 0.1em;
-        height: 2.95em;
+        width: 1.375em;
+        height: 2.83em;
+        position: relative;
+        left: 3.1rem;
+        bottom: 4.4rem;
     `;
 
 class EQButton extends React.Component {

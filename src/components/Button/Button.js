@@ -5,7 +5,6 @@ const Number = styled.button`
         font-size: 1.5em;
         text-align: center;
         color: palevioletred;
-        margin: 0.1em;
         width: 1.375em
     `;
 

@@ -17,15 +17,10 @@ const Main = styled.div`
 const Line = styled.div`
     display: flex;
     flex-direction: row;
-    padding: 0.1em;
     background: papayawhip;
 `;
 
-const Column = styled.div`
-    display: flex;
-    flex-direction: column;
-    padding: 0.1em;
-    background: papayawhip;
+const TwoPlaceLine = styled(Line)`
 `;
 
 const operatorsAvailable = ['+','-','x','/'];
@@ -202,10 +197,12 @@ class Calculator extends React.Component {
                         <Button triggerButtonAction={this.addToExpression} text={`3`} />
                         <Button triggerButtonAction={this.calculateAnswer} text={`=`} />
                     </Line>
-                    <Line>
+                    <TwoPlaceLine>
                         <ACButton triggerButtonAction={this.addToExpression} text={`0`} />
                         <Button triggerButtonAction={this.addToExpression} text={`.`} />
-                    </Line>
+                        <Button triggerButtonAction={this.calculateAnswer} text={`=`} />
+                    </TwoPlaceLine>
+                    <EQButton triggerButtonAction={this.calculateAnswer} text={`=`} />
                </Main> 
     }
 }

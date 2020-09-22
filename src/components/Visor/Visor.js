@@ -3,10 +3,12 @@ import styled from "styled-components"
 
 
 const VisorScreen = styled.input`
-    font-size: 1.5em; 
+    font-size: 1rem; 
     width: 10em;
-    height: 1.3em;
+    height: 1.3rem;
+    width: 7.4rem;
     text-align: right;
+    padding: 0.3rem;
 `
 
 class Visor extends React.Component{
