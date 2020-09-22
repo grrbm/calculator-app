@@ -3,6 +3,7 @@ import DotButton from '../Button/DotButton.js'
 import Button from '../Button/Button.js'
 import ACButton from '../Button/ACButton.js'
 import EQButton from '../Button/EQButton.js'
+import OperatorButton from '../Button/OperatorButton.js'
 import Visor from '../Visor/Visor.js'
 import SecondVisor from '../SecondVisor/SecondVisor.js'
 import styled from 'styled-components'
@@ -178,20 +179,20 @@ class Calculator extends React.Component {
                     </Line>
                     <Line>
                         <ACButton triggerButtonAction={this.clearVisors} text={`AC`} />
-                        <Button triggerButtonAction={this.addToExpression} text={`/`} />
-                        <Button triggerButtonAction={this.addToExpression} text={`x`} />
+                        <OperatorButton triggerButtonAction={this.addToExpression} text={`/`} lastResult={this.state.lastResult} />
+                        <OperatorButton triggerButtonAction={this.addToExpression} text={`x`} lastResult={this.state.lastResult} />
                     </Line>
                     <Line>
                         <Button triggerButtonAction={this.addToExpression} text={`7`} />
                         <Button triggerButtonAction={this.addToExpression} text={`8`} />
                         <Button triggerButtonAction={this.addToExpression} text={`9`} />
-                        <Button triggerButtonAction={this.addToExpression} text={`-`} />
+                        <OperatorButton triggerButtonAction={this.addToExpression} text={`-`} lastResult={this.state.lastResult}  />
                     </Line>
                     <Line>
                         <Button triggerButtonAction={this.addToExpression} text={`4`} />
                         <Button triggerButtonAction={this.addToExpression} text={`5`} />
                         <Button triggerButtonAction={this.addToExpression} text={`6`} />
-                        <Button triggerButtonAction={this.addToExpression} text={`+`} />
+                        <OperatorButton triggerButtonAction={this.addToExpression} text={`+`} lastResult={this.state.lastResult}  />
                     </Line>
                     <Line>
                         <Button triggerButtonAction={this.addToExpression} text={`1`} />
