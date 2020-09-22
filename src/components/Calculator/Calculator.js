@@ -1,5 +1,7 @@
 import React from "react"
 import Button from '../Button/Button.js'
+import ACButton from '../Button/ACButton.js'
+import EQButton from '../Button/EQButton.js'
 import Visor from '../Visor/Visor.js'
 import SecondVisor from '../SecondVisor/SecondVisor.js'
 import styled from 'styled-components'
@@ -15,7 +17,14 @@ const Main = styled.div`
 const Line = styled.div`
     display: flex;
     flex-direction: row;
-    padding: 1em;
+    padding: 0.1em;
+    background: papayawhip;
+`;
+
+const Column = styled.div`
+    display: flex;
+    flex-direction: column;
+    padding: 0.1em;
     background: papayawhip;
 `;
 
@@ -171,31 +180,31 @@ class Calculator extends React.Component {
                         <SecondVisor expression={this.state.expression} lastResult={this.state.lastResult} />
                     </Line>
                     <Line>
-                        <Button triggerButtonAction={this.addToExpression} text={`1`} />
-                        <Button triggerButtonAction={this.addToExpression} text={`2`} />
-                        <Button triggerButtonAction={this.addToExpression} text={`3`} />
-                    </Line>
-                    <Line>
-                        <Button triggerButtonAction={this.addToExpression} text={`4`} />
-                        <Button triggerButtonAction={this.addToExpression} text={`5`} />
-                        <Button triggerButtonAction={this.addToExpression} text={`6`} />
+                        <ACButton triggerButtonAction={this.clearVisors} text={`AC`} />
+                        <Button triggerButtonAction={this.addToExpression} text={`/`} />
+                        <Button triggerButtonAction={this.addToExpression} text={`x`} />
                     </Line>
                     <Line>
                         <Button triggerButtonAction={this.addToExpression} text={`7`} />
                         <Button triggerButtonAction={this.addToExpression} text={`8`} />
                         <Button triggerButtonAction={this.addToExpression} text={`9`} />
-                    </Line>
-                    <Line>
-                        <Button triggerButtonAction={this.addToExpression} text={`0`} />
-                        <Button triggerButtonAction={this.addToExpression} text={`.`} />
-                        <Button triggerButtonAction={this.clearVisors} text={`AC`} />
-                    </Line>
-                    <Line>
-                        <Button triggerButtonAction={this.addToExpression} text={`+`} />
                         <Button triggerButtonAction={this.addToExpression} text={`-`} />
-                        <Button triggerButtonAction={this.addToExpression} text={`x`} />
-                        <Button triggerButtonAction={this.addToExpression} text={`/`} />
+                    </Line>
+                    <Line>
+                        <Button triggerButtonAction={this.addToExpression} text={`4`} />
+                        <Button triggerButtonAction={this.addToExpression} text={`5`} />
+                        <Button triggerButtonAction={this.addToExpression} text={`6`} />
+                        <Button triggerButtonAction={this.addToExpression} text={`+`} />
+                    </Line>
+                    <Line>
+                        <Button triggerButtonAction={this.addToExpression} text={`1`} />
+                        <Button triggerButtonAction={this.addToExpression} text={`2`} />
+                        <Button triggerButtonAction={this.addToExpression} text={`3`} />
                         <Button triggerButtonAction={this.calculateAnswer} text={`=`} />
+                    </Line>
+                    <Line>
+                        <ACButton triggerButtonAction={this.addToExpression} text={`0`} />
+                        <Button triggerButtonAction={this.addToExpression} text={`.`} />
                     </Line>
                </Main> 
     }

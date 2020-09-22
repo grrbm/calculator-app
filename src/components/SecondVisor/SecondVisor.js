@@ -6,6 +6,7 @@ const VisorScreen = styled.input`
     font-size: 1.5em; 
     width: 10em;
     height: 1.3em;
+    text-align: right;
 `
 const operatorsAvailable = ['+','-','x','/'];
 

@@ -6,10 +6,10 @@ const Number = styled.button`
         text-align: center;
         color: palevioletred;
         margin: 0.1em;
-        width: 1.375em
+        height: 2.95em;
     `;
 
-class Button extends React.Component {
+class EQButton extends React.Component {
     
     constructor(props){
         super(props);
@@ -33,4 +33,4 @@ class Button extends React.Component {
     }
 }
 
-export default Button
+export default EQButton
