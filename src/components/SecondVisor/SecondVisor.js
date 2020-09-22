@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+const { operatorsAvailable } = require('../Utils/Utils.js');
 
 
 const VisorScreen = styled.input`
@@ -19,7 +20,7 @@ const VisorScreen = styled.input`
         cursor:default;
     }
 `
-const operatorsAvailable = ['+','-','x','/'];
+
 
 class SecondVisor extends React.Component{
 

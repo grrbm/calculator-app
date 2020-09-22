@@ -1,10 +1,12 @@
 import React from "react"
+import DotButton from '../Button/DotButton.js'
 import Button from '../Button/Button.js'
 import ACButton from '../Button/ACButton.js'
 import EQButton from '../Button/EQButton.js'
 import Visor from '../Visor/Visor.js'
 import SecondVisor from '../SecondVisor/SecondVisor.js'
 import styled from 'styled-components'
+const { operatorsAvailable } = require('../Utils/Utils.js')
 
 
 const Main = styled.div`
@@ -23,7 +25,7 @@ const Line = styled.div`
 const TwoPlaceLine = styled(Line)`
 `;
 
-const operatorsAvailable = ['+','-','x','/'];
+
 
 class Calculator extends React.Component {
 
@@ -38,8 +40,9 @@ class Calculator extends React.Component {
 
     clearVisors = () => {
         this.setState({
-            expression: '0',
-            solved: true
+            expression: '',
+            solved: true,
+            lastResult: ''
         });
     }
 
@@ -50,6 +53,11 @@ class Calculator extends React.Component {
             if (exp.length === 1 && operatorsAvailable.includes(exp[0])){
                 return {
                     lastResult: exp[0]
+                }
+            }
+            if (exp === '0.'){
+                return {
+                    lastResult: exp
                 }
             }
             if (prevState.lastResult.length === 1 && operatorsAvailable.includes(prevState.lastResult[0])){
@@ -73,16 +81,10 @@ class Calculator extends React.Component {
             }
             console.log("setting state to "+exp);
             return this.setState({ 
-                expression: exp === '.' ? '0.' : exp,
+                expression: exp,
                 solved: false
             })
         }
-        if (operatorsAvailable.includes(this.state.expression.charAt(this.state.expression.length-1))){
-            //if last char was an operator and current char is a dot
-            if (exp === '.'){
-                exp = '0.';
-            }            
-        } 
         this.setState({ expression: this.state.expression+exp })
         console.log("setting state to "+this.state.expression+exp);
     };
@@ -100,21 +102,18 @@ class Calculator extends React.Component {
     }
 
     solveExpression = (exp) => {
-        console.log("solving expression "+exp);
         let terms = [];
         let temp = '';
         let operators = [];
         for(let i=0;i < exp.length;i++)
         {
             if (operatorsAvailable.includes(exp.charAt(i))){
-                console.log("pushing term "+temp);
                 terms.push(temp);
                 operators.push(exp.charAt(i));
                 temp = '';
             }
             else if (i === exp.length-1){
                 temp+=exp.charAt(i);
-                console.log("pushing term "+temp);
                 terms.push(temp);
                 temp = '';
             }
@@ -199,7 +198,7 @@ class Calculator extends React.Component {
                     </Line>
                     <TwoPlaceLine>
                         <ACButton triggerButtonAction={this.addToExpression} text={`0`} />
-                        <Button triggerButtonAction={this.addToExpression} text={`.`} />
+                        <DotButton triggerButtonAction={this.addToExpression} text={`.`} lastResult={this.state.lastResult} solved={this.state.solved} expression={this.state.expression} />
                         <Button triggerButtonAction={this.calculateAnswer} text={`=`} />
                     </TwoPlaceLine>
                     <EQButton triggerButtonAction={this.calculateAnswer} text={`=`} />
