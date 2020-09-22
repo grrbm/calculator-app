@@ -96,6 +96,10 @@ class Calculator extends React.Component {
         {
             return;
         }
+        //if the first character in the expression is an operator, don't do anything
+        if (operatorsAvailable.includes(this.state.expression.substring(0,1))){
+            return;
+        }
         this.setState({ 
             expression: this.state.expression+exp+this.solveExpression(this.state.expression),
             solved: true
